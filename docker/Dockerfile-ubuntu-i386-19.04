@@ -9,9 +9,7 @@ TZ='Europe/Brussels' \
 pkgs='build-essential dash git lsb-release ruby wget' \
 pkgs_tmp='ruby-dev'
 
-RUN set -xv ; \
-apt-get -qq update && \
-apt-get -qq dist-upgrade -y && \
+RUN apt-get -qq update && apt-get -qq dist-upgrade -y && \
 # Packages for compiling and pkg creation
 apt-get -qq install -y ${pkgs} ${pkgs_tmp} && \
 gem install --no-doc --no-ri --no-doc --no-ri fpm && \
