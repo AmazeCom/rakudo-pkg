@@ -1,14 +1,15 @@
 #!/usr/bin/env perl6
 
-my $version        = '0.3.0';
+my $version        = '0.3.1';
 my $base-url       = 'http://cdimage.ubuntu.com/ubuntu-base/releases/';
 my %*SUB-MAIN-OPTS = :named-anywhere; #allow free order of cli args
 
 sub MAIN($release, :$id = 'nxadm' ) {
     my $file-url = $base-url ~ $release ~
         '/release/ubuntu-base-' ~ $release ~ '-base-i386.tar.gz';
-    my $cmd = 'curl ' ~ $file-url ~
+    my $cmd = 'curl -L ' ~ $file-url ~
         '| gunzip | docker import - ' ~ $id ~ '/ubuntu-i386:' ~ $release;
+    say "Executing: $cmd";
     my $exit-code = shell $cmd;
     if $exit-code == 0 {
         say 'Docker image imported (run "docker images").';
